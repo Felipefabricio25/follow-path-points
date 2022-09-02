@@ -1,0 +1,28 @@
+footprint: [[0.20, -0.20], [0.20, 0.20], [-0.20,0.20], [-0.20, -0.20]]
+robot_base_frame: base_link
+update_frequency: 5.0
+publish_frequency: 0.0
+transform_tolerance: 0.2
+resolution: 0.15
+obstacle_range: 2.5
+raytrace_range: 3.0
+
+static:
+    map_topic: /map
+    subscribe_to_updates: true
+
+obstacles_laser:
+    observation_sources: laser
+    laser: {data_type: LaserScan, clearing: true, marking: true, topic: scan, inf_is_valid: true}
+
+costmap_prohibition_layer:
+    prohibition_areas: [[0.3437262976310604, -1.1760760229224385],
+                        [0.39438291460104297, -0.6036566142917117],
+                        [0.611541907586476, 0.5346643709049077],
+                        [0.39553145725576355, 1.1399386487669687],
+                        [0.4038638882119924, 1.7981690267774826],
+                        [0.40389639825953993, 1.7986773505878513]]
+
+inflation:
+    inflation_radius: 0.30
+    cost_scaling_factor: 10.0

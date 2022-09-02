@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- WAS THIS TWO PARAMETERS-->
+  <!-- arg name="base_global_planner" default="navfn/NavfnROS"/ --> 
+  <!--arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/-->
+  <!-- <arg name="base_local_planner" default="base_local_planner/TrajectoryPlannerROS"/> -->
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+    <rosparam file="$(find follow-path-points)/params/local_planner.yaml" command="load" />
+    <rosparam file="$(find follow-path-points)/params/global_planner.yaml" command="load" />
+    <!-- rosparam file="$(find my_move_base)/params/my_move_base_params.yaml" command="load"/-->
+
+    <!-- REVISARRRR-->
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+
+    <!-- observation sources located in costmap_common.yaml -->
+    <rosparam file="$(find follow-path-points)/params/common_costmap.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find follow-path-points)/params/common_costmap.yaml" command="load" ns="local_costmap" />
+
+    <!-- local costmap, needs size -->
+    <rosparam file="$(find follow-path-points)/params/local_costmap.yaml" command="load" ns="local_costmap" />
+    <param name="local_costmap/width" value="4.0"/>
+    <param name="local_costmap/height" value="4.0"/>
+
+    <!-- static global costmap, static map provides size -->
+    <rosparam file="$(find follow-path-points)/params/global_costmap.yaml" command="load" ns="global_costmap"/>
+    <param name="controller_frequency" value="5.0" />
+    <param name="controller_patience" value="15.0" />
+  </node>
+
+</launch>
